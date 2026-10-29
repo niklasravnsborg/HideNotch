@@ -17,7 +17,8 @@ public enum NotchIcon {
         static let glyphWidthFraction: CGFloat = 0.6
     }
 
-    /// An 18×18 pt template image for the status item; auto-tints for light/dark menu bars.
+    /// An 18×18 pt template image for the status item; AppKit adapts its color
+    /// to the current menu-bar appearance.
     public static func menuBarImage() -> NSImage {
         let canvas = NSRect(x: 0, y: 0, width: 18, height: 18)
         let image = NSImage(size: canvas.size, flipped: false) { rect in

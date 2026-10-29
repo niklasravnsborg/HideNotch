@@ -217,11 +217,10 @@ public final class StatusItemController: NSObject, NSPopoverDelegate {
             applyOverlayPreferences()
             afterAnimation { [weak self] in self?.applyWallpaperPreferences(completion: finish) }
         } else {
-            applyWallpaperPreferences { [weak self] in
-                guard let self, self.transition == current else { return }
-                self.applyOverlayPreferences()
-                afterAnimation(finish)
-            }
+            // Start the hide animation immediately while the original wallpaper is restored.
+            // Both transitions take roughly the same time, avoiding a pause before the mask moves.
+            applyOverlayPreferences()
+            applyWallpaperPreferences(completion: finish)
         }
     }
 

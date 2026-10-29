@@ -43,7 +43,7 @@ struct StatusItemControllerTests {
         #expect(!overlay.isParked)
     }
 
-    @Test func turningOffWaitsForTheWallpaperBeforeHidingTheOverlay() {
+    @Test func turningOffStartsHidingBeforeTheWallpaperFinishes() {
         let (_, prefs, overlay) = makeSUT()
         var targets: [WallpaperTarget] = []
         var finish: (@MainActor () -> Void)?
@@ -56,9 +56,9 @@ struct StatusItemControllerTests {
             })
         sut.toggleOverlay()
         #expect(targets.last?.active == false)
-        #expect(overlay.isEnabled)
-        finish?()
         #expect(!overlay.isEnabled)
+        finish?()
+        #expect(!overlay.isParked)
     }
 
     @Test(arguments: [true, false])
